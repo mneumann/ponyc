@@ -108,6 +108,14 @@ target_include_directories(libponyc
     PRIVATE ../../lib/blake2
 )
 
+if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "DragonFly")
+    # We need dummy libatomic to be in the linker path
+    link_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../dragonfly/lib
+    )
+endif()
+
+
 if (MSVC)
     file(GLOB_RECURSE CFILES "${PROJECT_SOURCE_DIR}/*.c")
     set_source_files_properties(${CFILES} PROPERTIES LANGUAGE CXX)
